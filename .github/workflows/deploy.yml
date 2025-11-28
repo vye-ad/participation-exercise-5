@@ -40,13 +40,13 @@ jobs:
 
       - name: Notify Lambda
         run: |
-          curl -X POST \
+          curl --fail --show-error -X POST \
             -H "Content-Type: application/json" \
             -d "{
-              \"status\": \"${{ job.status }}\",
+              \"status\": \"success\",
               \"commit\": \"${{ github.sha }}\",
               \"branch\": \"${{ github.ref_name }}\",
               \"triggered_by\": \"${{ github.actor }}\",
               \"timestamp\": \"${{ github.event.head_commit.timestamp }}\"
             }" \
-            ${{ secrets.LAMBDA_URL }}
+            "${{ secrets.LAMBDA_URL }}"
